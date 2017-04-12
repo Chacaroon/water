@@ -1,0 +1,22 @@
+#coord {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+    cursor: crosshair;
+}
+
+#container {
+    position: absolute;
+    z-index: 0;
+    top: 10;
+    left: 10;
+}
+
+#setka {
+    position: absolute;
+    z-index: -1;
+    left: 9px;
+    top: 9px;
+    border: 1px solid black; 
+}
