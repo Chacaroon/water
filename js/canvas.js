@@ -78,9 +78,21 @@ setka
     .stroke(marker)
     .strokeAll('black');
 
-var mouse = new Mouse(app.container.bounds);
+var mouse = new Mouse(app.container.bounds)
+    , isDown = false
+    , center = new Point(450, 450)
+    , v1 = [0, main.size.height - center.y];
 
 mouse.events
+    .add('out', function () {
+        coord.clearAll();
+    })
+    .add('down', function () {
+        isDown = true
+    })
+    .add('up', function () {
+        isDown = false
+    })
     .add('move', function (event, mouse) {
         coord.clearAll();
         coord.fillText(mouse.point.x + ' ' + (coord.height - mouse.point.y), mouse.point.x + 5, mouse.point.y - 5)
@@ -90,9 +102,13 @@ mouse.events
             .lineTo(coord.width, mouse.point.y)
             .stroke('red')
             .closePath();
-    })
-    .add('out', function () {
-        coord.clearAll();
+        if (isDown) {
+            but.rotate((0).degree, center);
+            but.rotate(mouse.point.angleTo(center).degree(), center);
+            main.clearAll();
+            main.stroke(but);
+            console.log(event)
+        }
     });
 
 var but = new Path()
@@ -101,10 +117,10 @@ var but = new Path()
     .lineTo(new Point (400, 250))
     .curveTo(new Point(350, 300), new Point(350, 250))
     .lineTo(new Point(350, 550))
-    .curveTo(new Point(420, 780), new Point(350, 610), new Point(420, 600))
+    .curveTo(new Point(415, 780), new Point(350, 610), new Point(420, 600))
     .lineTo(new Point(450, 780))
     /*center*/
-    .lineTo(new Point(480, 780))
+    .lineTo(new Point(485, 780))
     .curveTo(new Point(550, 550), new Point(480, 600), new Point(550, 610))
     .lineTo(new Point(550, 300))
     .curveTo(new Point(500, 250), new Point(550, 250))
