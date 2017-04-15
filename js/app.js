@@ -4,4 +4,8 @@
 
 LibCanvas.extract();
 
-var app = new App(new Size(900, 900));
+var app = new App({
+    size: new Size(900, 900)
+});
+
+document.body.onload = setkaModel();

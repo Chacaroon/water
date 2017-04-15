@@ -7,10 +7,10 @@
  * WIEW
  */
 
-function textX(x) {
-    scale.fillText(x - 0.5, x, setka.height - 12)
+function textX(scale, x) {
+    scale.fillText(x - 0.5, x, scale.height - 12)
 }
 
-function textY(y) {
+function textY(scale, y) {
     scale.fillText(y, 20, scale.height - y)
 }

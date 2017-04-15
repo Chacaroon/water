@@ -6,50 +6,53 @@
  * SETKA
  * MODELS
  */
+function setkaModel() {
+    var setkaLayer = app.createLayer({
+        name: 'setka',
+        zIndex: 0
+    })
+        , scaleLayer = app.createLayer({
+        name: 'scale',
+        zIndex: 1
+    })
+        , setka = setkaLayer.ctx
+        , scale = scaleLayer.ctx;
 
-var setkaLayer = app.createLayer({
-    name: 'setka',
-    zIndex: 0
-})
-    , scaleLayer = app.createLayer({
-    name: 'scale',
-    zIndex: 1
-})
-    , setka = setkaLayer.ctx
-    , scale = scaleLayer.ctx;
+    scale.textAlign = 'center';
 
-scale.textAlign = 'center';
+    var x = y = 0.5
+        , path = new Path()
+        , marker = new Path();
 
-var x = y = 0.5
-    , path = new Path()
-    , marker = new Path();
-
-for (; x < setka.width; x += 10) {
-    path
-        .moveTo(new Point(x, y))
-        .lineTo(new Point (x, setka.height));
-    if (x % 50 === 0.5 && x !== 0.5) {
-        marker
-            .moveTo(new Point(x, setka.height))
-            .lineTo(new Point(x, setka.height - 10));
-        textX(x);
+    for (; x < setka.width; x += 10) {
+        path
+            .moveTo(new Point(x, y))
+            .lineTo(new Point(x, setka.height));
+        if (x % 50 === 0.5 && x !== 0.5) {
+            marker
+                .moveTo(new Point(x, setka.height))
+                .lineTo(new Point(x, setka.height - 10));
+            textX(scale, x);
+        }
     }
-}
 
-scale.textBaseline = 'middle';
+    scale.textBaseline = 'middle';
 
-for (x = 0.5; y < setka.height; y += 10) {
-    path
-        .moveTo(new Point (x, y))
-        .lineTo(new Point (setka.width, y));
-    if (y % 50 === 0.5 && y !== 0.5) {
-        marker
-            .moveTo(new Point(0, y))
-            .lineTo(new Point(10, y));
-        textY(y - 0.5);
+    for (x = 0.5; y < setka.height; y += 10) {
+        path
+            .moveTo(new Point(x, y))
+            .lineTo(new Point(setka.width, y));
+        if (y % 50 === 0.5 && y !== 0.5) {
+            marker
+                .moveTo(new Point(0, y))
+                .lineTo(new Point(10, y));
+            textY(scale, y - 0.5);
+        }
     }
-}
 
-lines(setka, path, '#eee');
-lines(scale, marker);
-lines(scale, 'all');
+    lines(setka, path, '#eee');
+    lines(scale, marker);
+    lines(scale, 'all');
+
+    coordModel();
+}
