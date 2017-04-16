@@ -3,7 +3,7 @@
  */
 
 function butModel() {
-    var butLayer, but;
+    var butLayer, but, down, center, lastAngle;
 
     butLayer = app.createLayer({
         name: 'but',
@@ -14,6 +14,8 @@ function butModel() {
 
     but.translate(0, but.height);
     but.scale(1, -1);
+
+    center = new Point(450, 450);
 
     var butPath = new Path()
         .moveTo(new Point (450, 250))
@@ -39,5 +41,23 @@ function butModel() {
     new Unit( butLayer, {
         shape: butPath
     });
+
+    mouse.events.add({
+        down: function () {
+            down = true;
+        },
+        up: function () {
+            down = false;
+        },
+        move: function (mouse) {
+            if (down) {
+                if (!lastAngle) lastAngle = this.point.angleTo(center);
+                
+                butPath.rotate(lastAngle - this.point.angleTo(center), center);
+
+                butLayer.redrawAll();
+            }
+        }
+    })
 }
 
