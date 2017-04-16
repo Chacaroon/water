@@ -12,6 +12,9 @@ function butModel() {
 
     but = butLayer.ctx;
 
+    but.translate(0, but.height);
+    but.scale(1, -1);
+
     var butPath = new Path()
         .moveTo(new Point (450, 250))
 
@@ -29,12 +32,12 @@ function butModel() {
 
     atom.declare( 'Unit', App.Element, {
         renderTo: function (ctx, resources) {
-            ctx.fill( this.shape, 'red' );
+            ctx.stroke( this.shape);
         }
     });
 
     new Unit( butLayer, {
-        shape: new Circle(100, 100, 50)
+        shape: butPath
     });
 }
 

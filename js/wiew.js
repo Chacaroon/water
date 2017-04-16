@@ -8,3 +8,10 @@ function lines(ctx, path, color) {
         :
         ctx.stroke(path, color || 'black');
 }
+
+function figure(ctx, path, color) {
+    path === 'all' ?
+        ctx.fillAll(color || 'black')
+        :
+        ctx.fill(path, color || 'black');
+}
