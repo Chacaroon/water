@@ -3,7 +3,7 @@
  */
 
 function butModel() {
-    var butLayer, but, down, center, lastAngle;
+    var butLayer, but, butElem,  down, center, lastAngle;
 
     butLayer = app.createLayer({
         name: 'but',
@@ -32,13 +32,13 @@ function butModel() {
         .curveTo(new Point(500, 250), new Point(550, 250))
         .lineTo(new Point(450, 250));
 
-    atom.declare( 'Unit', App.Element, {
-        renderTo: function (ctx, resources) {
-            ctx.stroke( this.shape);
+    atom.declare( 'Butt', App.Element, {
+        renderTo: function (ctx) {
+            lines(ctx, this.shape);
         }
     });
 
-    new Unit( butLayer, {
+    butElem = new Butt( butLayer, {
         shape: butPath
     });
 
@@ -49,13 +49,11 @@ function butModel() {
         up: function () {
             down = false;
         },
-        move: function (mouse) {
+        move: function rotate() {
             if (down) {
-                if (!lastAngle) lastAngle = this.point.angleTo(center);
-                
-                butPath.rotate(lastAngle - this.point.angleTo(center), center);
-
-                butLayer.redrawAll();
+                butPath.rotate((lastAngle || this.point.angleTo(center)) - this.point.angleTo(center), center);
+                lastAngle = this.point.angleTo(center);
+                butElem.redraw();
             }
         }
     })
