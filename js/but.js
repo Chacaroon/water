@@ -51,11 +51,14 @@ function butModel() {
         },
         move: function rotate() {
             if (down) {
-                butPath.rotate((lastAngle || this.point.angleTo(center)) - this.point.angleTo(center), center);
+                butPath.rotate(lastAngle - this.point.angleTo(center), center);
                 lastAngle = this.point.angleTo(center);
                 butElem.redraw();
+            } else {
+                lastAngle = this.point.angleTo(center);
             }
         }
-    })
-}
+    });
 
+    waterModel();
+}
