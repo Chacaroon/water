@@ -49,6 +49,9 @@ function butModel() {
         up: function () {
             down = false;
         },
+        out: function () {
+            down = false;
+        },
         move: function rotate() {
             if (down) {
                 butPath.rotate(lastAngle - this.point.angleTo(center), center);
@@ -59,6 +62,4 @@ function butModel() {
             }
         }
     });
-
-    waterModel();
 }

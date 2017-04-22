@@ -16,10 +16,14 @@ function figure(ctx, path, color) {
         ctx.fill(path, color || 'black');
 }
 function coordMouseEvent(text, x, y) {
-    text.content = [
-        'x     : ' + x,
-        'y     : ' + y
-    ].join('\n');
+    if (x && y) {
+        text.content = [
+            'x : ' + x,
+            'y : ' + y
+        ].join('\n');
+    } else {
+        text.content = '';
+    }
 }
 
 function textX(scale, x) {

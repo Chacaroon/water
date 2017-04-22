@@ -7,14 +7,29 @@ function waterModel() {
         name: 'water',
         zIndex: 2
     })
-        , water = waterLayer.ctx;
+        , water = {};
 
-    atom.declare('WaterElem', App.Element, {
-        initialize: function (layer) {
-            this.layer = layer;
-            this.g = 9.81;
-        },
+    water.ctx = waterLayer.ctx;
 
-        lol: new Path()
-    });
+    water.path = new Path()
+        .moveTo(new Point(450, 450))
+        .lineTo(new Point(480, 450))
+        .lineTo(new Point(480, 480))
+        .lineTo(new Point(450, 480))
+        .lineTo(new Point(450, 450));
+
+    water.stroke = function() {
+        this.ctx.stroke(this.path);
+    };
+
+    water.step = function () {
+        this.draw();
+        requestAnimationFrame(this.step.bind(this));
+    };
+
+    water.draw = function () {
+        this.path.move(1, 'down');
+        this.ctx.clearAll();
+        this.stroke();
+    }
 }

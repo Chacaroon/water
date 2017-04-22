@@ -53,6 +53,4 @@ function setkaModel() {
     lines(setka, path, '#eee');
     lines(scale, marker);
     lines(scale, 'all');
-
-    coordModel();
 }

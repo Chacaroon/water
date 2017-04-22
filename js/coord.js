@@ -24,9 +24,7 @@ function coordModel() {
                 coordMouseEvent(rect, mouse.layerX, coord.height - mouse.layerY)
             },
             out: function () {
-                coordMouseEvent(rect, 'none', 'none')
+                coordMouseEvent(rect)
             }
         });
-
-    butModel();
 }
